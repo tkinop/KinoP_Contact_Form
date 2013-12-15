@@ -12,16 +12,26 @@
 
 class Controller_Contact extends Controller
 {
-        
-	public function action_index()
+	public static function action_index()
 	{
-            $data['category'] = array(
-                0 => '',
-                1 => 'TEST1',
-                2 => 'TEST2',
-                3 => 'TEST3',
-            );
-            return Response::forge(View::forge('contact/index',$data));
+		$data['category'] = array(
+			0 => '',
+			1 => 'TEST1',
+			2 => 'TEST2',
+			3 => 'TEST3',
+		);
+		return Response::forge(View::forge('contact/index', $data));
+	}
+
+	public static function action_sended()
+	{
+		return Response::forge(View::forge('contact/sended'));
+	}
+
+	public static function post_sendmail()
+	{
+		Mail::send(\Fuel\Core\Input::post());
+		return Response::forge(View::forge('contact/sended'));
 	}
 
 }
