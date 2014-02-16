@@ -1,6 +1,6 @@
 <h2>お問い合わせフォーム</h2>
 
-<form name="contact_form" action="/cform/contact/sendmail" method="post">
+<form name="contact_form" action="/cform/contact/confirm" method="post">
 
 	<table>
 		<tr>

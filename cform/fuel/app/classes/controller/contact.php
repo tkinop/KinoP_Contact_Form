@@ -14,6 +14,8 @@ class Controller_Contact extends Controller
 {
 	public static function action_index()
 	{
+		if (\Fuel\Core\Session::get('input')) $data = \Fuel\Core\Session::get('input');
+
 		$data['category'] = array(
 			0 => '',
 			1 => 'TEST1',
@@ -25,13 +27,23 @@ class Controller_Contact extends Controller
 
 	public static function action_sended()
 	{
-		return Response::forge(View::forge('contact/sended'));
+		return Response::forge(View::forge('contact/confirm'));
 	}
 
 	public static function post_sendmail()
 	{
-		Mail::send(\Fuel\Core\Input::post());
+		Mail::send(\Fuel\Core\Session::get('input'));
+
+		if (\Fuel\Core\Session::get('input')) \Fuel\Core\Session::delete('input');
 		return Response::forge(View::forge('contact/sended'));
 	}
 
+	public static function post_confirm()
+	{
+		//sessionに入力内容を格納
+		\Fuel\Core\Session::set('input', \Fuel\Core\Input::post());
+		$data = \Fuel\Core\Input::post();
+
+		return Response::forge(View::forge('contact/confirm', $data));
+	}
 }
