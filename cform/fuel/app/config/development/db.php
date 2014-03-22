@@ -5,10 +5,19 @@
 
 return array(
 	'default' => array(
+		'type' => 'mysqli',		
 		'connection'  => array(
-			'dsn'        => 'mysql:host=localhost;dbname=fuel_dev',
-			'username'   => 'root',
-			'password'   => 'root',
+			'hostname' => '',
+			'database' => '',
+			'username' => '',
+			'password' => '',
+			'persistent' => false,
+			'compress' => false,
 		),
+		'identifier' => '`',
+		'table_prefix' => '',
+		'charset' => 'utf8',
+		'enable_cache' => true,
+		'profiling' => false,
 	),
 );

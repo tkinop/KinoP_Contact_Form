@@ -32,17 +32,32 @@ class Controller_Contact extends Controller
 
 	public static function post_sendmail()
 	{
+		//メール送信
 		Mail::send(\Fuel\Core\Session::get('input'));
 
+		//メール内容の保存
+		$mail = Model_Mail::forge()->from_array(\Fuel\Core\Session::get('input'));
+		$mail->save();
+		
 		if (\Fuel\Core\Session::get('input')) \Fuel\Core\Session::delete('input');
 		return Response::forge(View::forge('contact/sended'));
 	}
 
 	public static function post_confirm()
 	{
-		//sessionに入力内容を格納
-		\Fuel\Core\Session::set('input', \Fuel\Core\Input::post());
 		$data = \Fuel\Core\Input::post();
+
+		$valid = Model_Mail::forge($data)->validate('save');
+
+		if ( ! $valid->run())
+		{
+			Session::set_flash('error', '入力エラー');
+			Session::set_flash('errors', $valid->show_errors());
+			return Response::redirect(\Fuel\Core\Input::referrer());
+		}
+		
+		//sessionに入力内容を格納
+		\Fuel\Core\Session::set('input', $data);
 
 		return Response::forge(View::forge('contact/confirm', $data));
 	}

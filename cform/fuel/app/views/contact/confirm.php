@@ -1,6 +1,6 @@
 <h2>確認画面</h2>
 
-<form name="form_confirm" action="/cform/contact/sendmail" method="post">
+<form id="form_confirm" action="/cform/contact/sendmail" method="post">
 
 	<table>
 		<tr>

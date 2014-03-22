@@ -2,6 +2,9 @@
 
 <form name="contact_form" action="/cform/contact/confirm" method="post">
 
+	<div class="alert-error">
+		<?php if (Session::get_flash('error')) echo Session::get_flash('error'); ?>
+	</div>
 	<table>
 		<tr>
 			<td>タイトル</td>
